@@ -1,8 +1,9 @@
-import './App.css'
+import Login from './pages/login'
 
-const App = () => <h1>BIRTHDAY REMINDER</h1>
-
-  
-
-
-export default App
+export default function App() {
+  return (
+    <>
+      <Login />
+    </>
+  )
+}
