@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, FormErrorMessage, Input } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
+import { emailRegisterOption } from '../../../helpers/registerOptions'
 import { IEmailInput } from '../../../types'
-import { emailRegisterOption } from '../../../utils/registerOptions'
 
 interface GetAccessCodeProps {
   onSubmit(formData: IEmailInput): void

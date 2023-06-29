@@ -1,20 +1,19 @@
 import { Box, Button, FormControl, FormErrorMessage, Input } from '@chakra-ui/react'
-import axios from 'axios'
 import { useForm } from 'react-hook-form'
 
-import { IRegistrationFormData } from '../../../types'
 import {
   emailRegisterOption,
   nameRegisterOption,
   phoneRegisterOption
-} from '../../../utils/registerOptions'
+} from '../../../helpers/registerOptions'
+import { IRegistrationFormData } from '../../../types'
 
 export default function Register() {
   const { handleSubmit, register, formState } = useForm<IRegistrationFormData>()
   const { errors, isSubmitting } = formState
 
   const onSubmit = (formData: IRegistrationFormData): void => {
-    const url = 'https://localhost:5000/api/me/sign-up'
+    const url = 'https://localhost:5000/api/users/me/sign-up'
   
     // Submit user data to Server
 

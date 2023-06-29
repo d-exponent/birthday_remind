@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { accessCodeRegisterOption } from '../../../helpers/registerOptions'
 import { IAccessCodeInput } from '../../../types'
-import { accessCodeRegisterOption } from '../../../utils/registerOptions'
 
 import {
   Button,
