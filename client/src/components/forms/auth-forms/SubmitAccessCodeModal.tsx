@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { IAccessCodeInput } from '../../../../@types.birthday'
 import { accessCodeRegisterOption } from '../../../helpers/registerOptions'
-import { IAccessCodeInput } from '../../../types'
 
 import {
   Button,
@@ -24,20 +24,23 @@ interface LoginModalProps {
 }
 
 export default function SubmitAccessCodeModal(props: LoginModalProps) {
-  const { isOpen, onOpen } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const { register, handleSubmit, formState } = useForm<IAccessCodeInput>()
   const { errors } = formState
 
   // Open the modal on render
-  useEffect(onOpen, [onOpen])
-
-  //Stop the default closing behavior of the modal
-  const stupidFunction = (): void => {
-    /**/
-  }
+  useEffect(() => {
+    onOpen()
+    return () => onClose()
+  }, [onOpen, onClose])
 
   return (
-    <Modal isOpen={isOpen} onClose={stupidFunction}>
+    <Modal
+      isOpen={isOpen}
+      onClose={() => {
+        /**/
+      }}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
@@ -56,7 +59,7 @@ export default function SubmitAccessCodeModal(props: LoginModalProps) {
             </Button>
           </form>
           <ModalFooter>
-            <Button onClick={props.closeModal}>Back to login</Button>
+            <Button onClick={props.closeModal}>Exit</Button>
           </ModalFooter>
         </ModalBody>
       </ModalContent>

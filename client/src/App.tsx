@@ -1,9 +1,14 @@
-import Login from './pages/login'
+import { Outlet } from 'react-router-dom'
+import Layout from './components/ui/Layout'
 
-export default function App() {
+const App = () => {
   return (
-    <>
-      <Login />
-    </>
+    <main>
+      <Layout>
+        <Outlet />
+      </Layout>
+    </main>
   )
 }
+
+export default App
