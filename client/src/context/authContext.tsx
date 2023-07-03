@@ -24,7 +24,6 @@ export function AuthProvider(props: IReactChildrenProps) {
         })
         .catch(() => setStatus(false))
       return abort
-
     }
 
     if (accessToken && status === true && user === null) {
@@ -35,7 +34,7 @@ export function AuthProvider(props: IReactChildrenProps) {
 
       promise
         .then(({ data: { data } }) => setUser(data))
-        .catch((e) => console.error(e))
+        .catch(e => console.error(e))
 
       return abort
     }
@@ -44,6 +43,7 @@ export function AuthProvider(props: IReactChildrenProps) {
   const authContextValues = {
     user,
     status,
+    accessToken: accessToken ? accessToken : '',
     setAccessToken
   }
 

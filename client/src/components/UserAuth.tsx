@@ -23,7 +23,7 @@ export default function UserAuth() {
   }
 
   const toggleShowGetAccessCode = () => {
-    setShowGetAccessCode((prevState) => !prevState)
+    setShowGetAccessCode(prevState => !prevState)
   }
 
   const onSubmitAccessCode = async (formData: IAccessCodeInput): Promise<void> => {

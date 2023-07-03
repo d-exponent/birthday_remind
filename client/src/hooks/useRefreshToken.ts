@@ -4,7 +4,7 @@ import { axiosBase } from '../helpers/api/axios'
 const useRefreshToken = () => {
   const { setAccessToken } = useAuth()
 
-  const refresh = async () => {
+  const refresh = async (): Promise<string | null> => {
     try {
       const { data } = await axiosBase.get('auth/refresh')
       setAccessToken(data.accessToken)
@@ -14,7 +14,7 @@ const useRefreshToken = () => {
       return null
     }
   }
-  
+
   return refresh
 }
 

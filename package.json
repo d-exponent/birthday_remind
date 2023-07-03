@@ -1,0 +1,14 @@
+{
+  "name": "birthday_remind",
+  "version": "1.0.0",
+  "description": "A full stack application to remind users of loved ones birthdays via emails",
+  "main": "index.js",
+  "scripts": {
+    "pretty": "prettier --config .prettierrc ./**/*.{js,ts,jsx,tsx,json} --write"
+  },
+  "author": "Desmond Odion",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  }
+}

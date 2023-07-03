@@ -44,5 +44,6 @@ export interface IUser {
 export interface IAuthContextType {
   user: IUser | null
   status: boolean | null
+  accessToken: string
   setAccessToken(token: string | null): void
 }
