@@ -1,13 +1,15 @@
 import { Outlet } from 'react-router-dom'
 import Layout from './components/ui/Layout'
+import Notifification from './components/ui/Notification'
 
 const App = () => {
   return (
-    <main>
+    <>
       <Layout>
         <Outlet />
       </Layout>
-    </main>
+      <Notifification />
+    </>
   )
 }
 

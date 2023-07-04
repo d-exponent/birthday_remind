@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom'
 
 import { AuthProvider } from './context/authContext'
-import './index.css'
+import { NotificationProvider } from './context/notificationContext'
 
 import App from './App'
 import Protect from './components/protect/Protect'
@@ -40,10 +40,12 @@ const router = createBrowserRouter(
 
 root.render(
   // <React.StrictMode>
-  <AuthProvider>
-    <ChakraProvider>
-      <RouterProvider router={router} />
-    </ChakraProvider>
-  </AuthProvider>
+  <ChakraProvider>
+    <NotificationProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </NotificationProvider>
+  </ChakraProvider>
   // </React.StrictMode>
 )

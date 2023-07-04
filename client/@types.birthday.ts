@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import Notifification from './src/helpers/notification'
 
 export interface IEmailInput {
   email: string
@@ -33,6 +34,7 @@ export interface IProtectedRoute {
   roles: string[]
 }
 
+// AuthContext
 export interface IUser {
   id: string
   name: string
@@ -46,4 +48,19 @@ export interface IAuthContextType {
   status: boolean | null
   accessToken: string
   setAccessToken(token: string | null): void
+}
+
+// Notification Context
+export type notificationStatus = 'error' | 'pending' | 'success'
+export interface INotificationContent {
+  status: notificationStatus
+  message: string
+}
+
+export type notificationContent = INotificationContent | null
+export type setNotification = (notification: notificationContent) => void
+
+export interface INotificationContextValue {
+  content: notificationContent
+  setContent: Notifification
 }

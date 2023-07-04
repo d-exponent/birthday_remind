@@ -40,7 +40,7 @@ export function AuthProvider(props: IReactChildrenProps) {
     }
   }, [accessToken, status, user])
 
-  const authContextValues = {
+  const authContextValue = {
     user,
     status,
     accessToken: accessToken ? accessToken : '',
@@ -48,7 +48,7 @@ export function AuthProvider(props: IReactChildrenProps) {
   }
 
   return (
-    <AuthContext.Provider value={authContextValues}>
+    <AuthContext.Provider value={authContextValue}>
       {props.children}
     </AuthContext.Provider>
   )

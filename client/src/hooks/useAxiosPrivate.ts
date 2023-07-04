@@ -11,6 +11,7 @@ const useAxiosPrivate = () => {
     const requestInterceptor = axiosBase.interceptors.request.use(
       config => {
         config.headers['Content-Type'] = 'application/json'
+        // Add accessToken to all request config if not set
         if (!config.headers['Authorization'] && accessToken) {
           config.headers['Authorization'] = `Bearer ${accessToken}`
         }

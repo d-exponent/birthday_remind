@@ -10,7 +10,7 @@ export const axiosAbort = ({ url, method, config }: IAbortConfigParams) => {
   const controller = new AbortController()
   let abortConfig = { signal: controller.signal }
 
-  if (config) abortConfig = { ...config, ...abortConfig }
+  if (config) abortConfig = { ...abortConfig, ...config }
 
   return {
     promise: axiosBase[method ? method : 'get'](url, abortConfig),
