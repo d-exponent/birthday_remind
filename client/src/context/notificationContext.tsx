@@ -6,7 +6,9 @@ import {
 } from '../../@types.birthday'
 import Notifification from '../helpers/notification'
 
-const NotificationContext = createContext<INotificationContextValue | null>(null)
+const NotificationContext = createContext<INotificationContextValue | null>(
+  null
+)
 
 export const NotificationProvider = (props: IReactChildrenProps) => {
   const [notifcation, setNotification] = useState<notificationContent>(null)
@@ -21,7 +23,6 @@ export const NotificationProvider = (props: IReactChildrenProps) => {
     const timeOut = setTimeout(() => {
       appNotification.hide()
     }, 5000)
-
     return () => clearTimeout(timeOut)
   }, [notifcation, appNotification])
 

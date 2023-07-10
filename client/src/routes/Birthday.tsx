@@ -1,5 +1,5 @@
-function Brithday() {
-  return <button type="button">Click me</button>
-}
+import AddBirthday from '../components/forms/AddBirthday'
 
-export default Brithday
+const Birthday = () => <AddBirthday />
+
+export default Birthday

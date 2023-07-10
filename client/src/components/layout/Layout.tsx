@@ -1,10 +1,12 @@
+import Header from './Header'
 import { IReactChildrenProps } from '../../../@types.birthday'
+import '../../styles/layout.css'
 
 const Layout = (props: IReactChildrenProps) => {
   return (
     <>
-      <header>This will be the header</header>
-      {props.children}
+      <Header/>
+      <main className="container">{props.children}</main>
     </>
   )
 }

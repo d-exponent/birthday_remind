@@ -1,15 +1,17 @@
 import { Outlet } from 'react-router-dom'
-import Layout from './components/ui/Layout'
-import Notifification from './components/ui/Notification'
+import Notifification from './components/Notification'
+import Layout from './components/layout/Layout'
+
+import './App.css'
 
 const App = () => {
   return (
-    <>
+    <div className="App">
       <Layout>
         <Outlet />
       </Layout>
       <Notifification />
-    </>
+    </div>
   )
 }
 

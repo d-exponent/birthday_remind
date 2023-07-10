@@ -11,6 +11,13 @@ export interface IRegistrationFormData extends IEmailInput {
   phone: string
 }
 
+export interface IAddBirtdayFormdata {
+  name: string
+  day: number
+  month: number
+  phone?: string
+  email?: string
+}
 export interface IAccessCodeInput {
   accessCode: string
 }
@@ -22,6 +29,12 @@ export interface IReactChildrenProps {
 export interface IUserAuthFormsProps {
   onSuccess(userId: string): void
   onError(): void
+}
+
+// LOGIN MODAL
+export interface ILoginModalProps {
+  onSubmit(formdata: IAccessCodeInput): void
+  closeModal(): void
 }
 
 export interface IAbortConfigParams {
@@ -51,7 +64,7 @@ export interface IAuthContextType {
 }
 
 // Notification Context
-export type notificationStatus = 'error' | 'pending' | 'success'
+export type notificationStatus = 'error' | 'info' | 'success'
 export interface INotificationContent {
   status: notificationStatus
   message: string

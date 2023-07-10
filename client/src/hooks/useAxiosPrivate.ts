@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
+import { axiosBase } from '../helpers/api/axios'
 import useAuth from './useAuth'
 import useRefreshToken from './useRefreshToken'
-import { axiosBase } from '../helpers/api/axios'
 
 const useAxiosPrivate = () => {
   const { accessToken } = useAuth()
@@ -30,7 +30,9 @@ const useAxiosPrivate = () => {
           const newAccessToken = await refresh()
 
           if (newAccessToken) {
-            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
+            originalRequest.headers[
+              'Authorization'
+            ] = `Bearer ${newAccessToken}`
           }
           return axiosBase(originalRequest) //One more time champ!
         }

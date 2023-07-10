@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { IAccessCodeInput } from '../../../../@types.birthday'
-import { accessCodeRegisterOption } from '../../../helpers/registerOptions'
+import { IAccessCodeInput, ILoginModalProps } from '../../../../@types.birthday'
+import { loginAccessCodeRequired } from '../../../helpers/formRegisterConfig'
 
 import {
   Button,
@@ -18,12 +18,7 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 
-interface LoginModalProps {
-  onSubmit(formdata: IAccessCodeInput): void
-  closeModal(): void
-}
-
-export default function SubmitAccessCodeModal(props: LoginModalProps) {
+export default function Login(props: ILoginModalProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { register, handleSubmit, formState } = useForm<IAccessCodeInput>()
   const { errors } = formState
@@ -47,10 +42,12 @@ export default function SubmitAccessCodeModal(props: LoginModalProps) {
         <ModalBody>
           <form onSubmit={handleSubmit(props.onSubmit)}>
             <FormControl isInvalid={errors.accessCode}>
-              <FormLabel htmlFor="accessCode">Enter 4 digits access code</FormLabel>
+              <FormLabel htmlFor="accessCode">
+                Enter 4 digits access code
+              </FormLabel>
               <Input
                 id="accessCode"
-                {...register('accessCode', accessCodeRegisterOption)}
+                {...register('accessCode', loginAccessCodeRequired)}
               />
               <FormErrorMessage>{errors.accessCode?.message}</FormErrorMessage>
             </FormControl>

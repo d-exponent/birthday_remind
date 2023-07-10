@@ -4,7 +4,6 @@
   box-sizing: border-box;
   padding: 20px;
   place-content: center;
-  background: rgb(31, 31, 67);
   position: fixed;
   width: min(80%, 350px);
   right: 20px;
@@ -14,15 +13,17 @@
   z-index: 999;
 }
 
-.success {
-  background-color: rgb(31, 31, 67);
+
+/* 'error' | 'info' | 'success' */
+
+.error{
+  background-color: rgba(237, 28, 36, 0.8);
 }
 
-.error {
-  background-color: rgb(237, 67, 55);
+.info{
+  background-color: rgba(168, 100, 168, 0.9);
 }
 
-.pending {
-  background-color: rgba(39, 40, 34, 1);
+.success{
+  background-color: rgba(27, 156, 133, 0.9);
 }
-

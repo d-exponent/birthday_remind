@@ -1,17 +1,20 @@
 import { Button } from '@chakra-ui/react'
 import { useState } from 'react'
 import { axiosBase } from '../helpers/api/axios'
+import useNotification from '../hooks/useNotification'
 
 import GetAccessCode from './forms/auth-forms/GetAccessCode'
+import LoginModal from './forms/auth-forms/LoginModal'
 import SignUp from './forms/auth-forms/SignUp'
-import SubmitAccessCodeModal from './forms/auth-forms/SubmitAccessCodeModal'
 
 import { IAccessCodeInput } from '../../@types.birthday'
 
 export default function UserAuth() {
   const [userEmail, setUserEmail] = useState<string>('')
+  const { setContent } = useNotification()
   const [showGetAccessCode, setShowGetAccessCode] = useState<boolean>(true)
-  const [showSubmitAccessCode, setShowSubmitAccessCode] = useState<boolean>(false)
+  const [showSubmitAccessCode, setShowSubmitAccessCode] =
+    useState<boolean>(false)
 
   const onSuccess = (userEmail: string) => {
     setUserEmail(userEmail)
@@ -26,12 +29,14 @@ export default function UserAuth() {
     setShowGetAccessCode(prevState => !prevState)
   }
 
-  const onSubmitAccessCode = async (formData: IAccessCodeInput): Promise<void> => {
+  const onSubmitAccessCode = async (formData: IAccessCodeInput) => {
+    setContent.show('info', 'Submitting access code')
     try {
       await axiosBase.get(`/auth/login/${userEmail}/${formData.accessCode}`)
+      setContent.show('success', `Login successfull`)
       // TODO: REDIRECT USER TO HOME PAGE OR ADD BIRTHDAY PAGE
-    } catch (error) {
-      // NOTIFY USER OF ERROR
+    } catch (e) {
+      setContent.show('error', e.response.data.message)
     }
   }
 
@@ -50,7 +55,7 @@ export default function UserAuth() {
       </Button>
 
       {showSubmitAccessCode && (
-        <SubmitAccessCodeModal
+        <LoginModal
           onSubmit={onSubmitAccessCode}
           closeModal={() => setShowSubmitAccessCode(false)}
         />

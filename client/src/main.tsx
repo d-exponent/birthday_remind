@@ -7,11 +7,16 @@ import {
   createRoutesFromElements
 } from 'react-router-dom'
 
+// Providers
 import { AuthProvider } from './context/authContext'
 import { NotificationProvider } from './context/notificationContext'
 
+// Loaders
+import { loadUserBirthdays } from './helpers/loaders'
+
+// Components
 import App from './App'
-import Protect from './components/protect/Protect'
+import Protect from './components/Protect'
 import Authentication from './routes/Authentication'
 import Birthday from './routes/Birthday'
 import Error from './routes/Error'
@@ -29,8 +34,12 @@ const router = createBrowserRouter(
         <Route path="birthday" element={<Birthday />} />
       </Route>
 
-      <Route element={<Protect roles={['user']} />}>
-        <Route path="profile" element={<UserProfile />} />
+      <Route element={<Protect roles={['*']} />}>
+        <Route
+          path="profile/:userId"
+          loader={loadUserBirthdays}
+          element={<UserProfile />}
+        />
       </Route>
 
       <Route path="unauthorized" element={<Unauthorized />} />

@@ -1,5 +1,9 @@
 import { createContext, useEffect, useState } from 'react'
-import { IAuthContextType, IReactChildrenProps, IUser } from '../../@types.birthday'
+import {
+  IAuthContextType,
+  IReactChildrenProps,
+  IUser
+} from '../../@types.birthday'
 import { axiosAbort } from '../helpers/api/axios'
 
 type accessToken = string | null
@@ -29,7 +33,9 @@ export function AuthProvider(props: IReactChildrenProps) {
     if (accessToken && status === true && user === null) {
       const { promise, abort } = axiosAbort({
         url: '/users/me',
-        config: { headers: { Authorization: `Bearer ${accessToken}` } }
+        config: {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        }
       })
 
       promise
