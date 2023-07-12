@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
-import ProtectedLink from './ProtectedLink'
+import MyLink from './MyLink'
 
 const Header = () => {
   const { status } = useAuth()
@@ -11,10 +11,10 @@ const Header = () => {
       <NavLink to="/">HOME</NavLink>
       <nav>
         <>
-          {status === false && <NavLink to="/log-in">Login</NavLink>}
-          {status === false && <NavLink to="/sign-up">Sign up</NavLink>}
-          <ProtectedLink to="/profile" text="Profile" />
-          <ProtectedLink to="/birthday" text="New Birthday" />
+          {status === false && <MyLink to="/log-in" text="Login" />}
+          {status === false && <MyLink to="/sign-up" text="Sign up" />}
+          <MyLink to="/profile" text="Profile" protect={true} />
+          <MyLink to="/birthday" text="New Birthday" protect={true} />
         </>
       </nav>
     </header>

@@ -13,16 +13,10 @@ const Protect = (props: IProtectedRoute) => {
   switch (true) {
     case userRole && (props.roles[0] === '*' || props.roles.includes(userRole)):
       return <Outlet />
-
     case auth?.user !== null:
-      setContent.show('error', 'You are not authorized to this page')
+      setContent.show('error', 'You are not authorized to the page')
       return <Navigate to="/unauthorized" state={navigationState} replace />
-
     default:
-      setContent.show(
-        'error',
-        'Authentication failed!. Please login or register'
-      )
       return <Navigate to="/" state={navigationState} replace />
   }
 }

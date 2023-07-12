@@ -32,7 +32,7 @@ export function AuthProvider(props: IReactChildrenProps) {
       return abort
     }
 
-    if ((accessToken && status === true && user === null)) {
+    if (accessToken && status === true && user === null) {
       const { promise, abort } = axiosAbort({
         url: '/users/me',
         config: {

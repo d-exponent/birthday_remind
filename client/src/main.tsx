@@ -37,11 +37,7 @@ const router = createBrowserRouter(
       </Route>
 
       <Route element={<Protect roles={['*']} />}>
-        <Route
-          path="profile"
-          loader={loadUserBirthdays}
-          element={<UserProfile />}
-        />
+        <Route path="profile" element={<UserProfile />} />
       </Route>
 
       <Route path="unauthorized" element={<Unauthorized />} />

@@ -7,7 +7,7 @@ import SignUp from '../components/forms/auth-forms/SignUp'
 
 export default function UserAuth() {
   const { pathname } = useLocation()
-  const [focusOnSignUp, setFocusOnSignUp] = useState<boolean | null>(true)
+  const [focusOnSignUp, setFocusOnSignUp] = useState<boolean | null>(null)
 
   useEffect(() => {
     setFocusOnSignUp(pathname === '/sign-up')
