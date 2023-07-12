@@ -6,32 +6,31 @@ import {
   Input
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
+import useSignUpLogin from '../../../hooks/useSignUpLogin'
 import { axiosBase } from '../../../helpers/api/axios'
 import useNotification from '../../../hooks/useNotification'
 
-import {
-  IRegistrationFormData,
-  IUserAuthFormsProps
-} from '../../../../@types.birthday'
+import { IRegistrationFormData } from '../../../../@types.birthday'
 import {
   emailRequired,
   nameRequired,
   phoneRequired
 } from '../../../helpers/formRegisterConfig'
 
-export default function SignUp(props: IUserAuthFormsProps) {
+const SignUp = () => {
   const { setContent } = useNotification()
   const { handleSubmit, register, formState } = useForm<IRegistrationFormData>()
   const { errors, isSubmitting } = formState
+
+  const { setEmail } = useSignUpLogin()
 
   const onSubmit = async (formData: IRegistrationFormData) => {
     try {
       setContent.show('info', 'Signing up')
       const { data } = await axiosBase.post('/users/me/sign-up', formData)
-      props.onSuccess(data.data.email)
       setContent.show('success', data.message)
+      setEmail(data.data.email)
     } catch (e) {
-      props.onError()
       setContent.show('error', e.response.data.message)
     }
   }
@@ -66,3 +65,5 @@ export default function SignUp(props: IUserAuthFormsProps) {
     </form>
   )
 }
+
+export default SignUp

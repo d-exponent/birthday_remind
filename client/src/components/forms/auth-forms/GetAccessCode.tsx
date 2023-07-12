@@ -6,13 +6,16 @@ import {
   Input
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-import { IEmailInput, IUserAuthFormsProps } from '../../../../@types.birthday'
+import { IEmailInput } from '../../../../@types.birthday'
 import { axiosBase } from '../../../helpers/api/axios'
 import { emailRequired } from '../../../helpers/formRegisterConfig'
-import useNotification from '../../../hooks/useNotification'
 
-export default function GetAccessCode(props: IUserAuthFormsProps) {
+import useNotification from '../../../hooks/useNotification'
+import useSignUpLogin from '../../../hooks/useSignUpLogin'
+
+export default function GetAccessCode() {
   const { setContent } = useNotification()
+  const { setEmail } = useSignUpLogin()
 
   const { handleSubmit, register, formState } = useForm<IEmailInput>()
   const { errors } = formState
@@ -20,14 +23,10 @@ export default function GetAccessCode(props: IUserAuthFormsProps) {
   const onSubmit = async ({ email }: IEmailInput) => {
     setContent.show('info', `sending access code to ${email} `)
     try {
-      await axiosBase.get(`/auth/${email}`)
-      props.onSuccess(email)
-      setContent.show(
-        'success',
-        `Access code was sent to ${email} successfully `
-      )
+      const res = await axiosBase.get(`/auth/${email}`)
+      setContent.show('success', res.data.message)
+      setEmail(email.toLowerCase())
     } catch (e) {
-      props.onError()
       setContent.show('error', e.response.data.message)
     }
   }

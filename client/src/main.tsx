@@ -10,6 +10,7 @@ import {
 // Providers
 import { AuthProvider } from './context/authContext'
 import { NotificationProvider } from './context/notificationContext'
+import { SignUpLoginProvider } from './context/SignupLoginContext'
 
 // Loaders
 import { loadUserBirthdays } from './helpers/loaders'
@@ -28,7 +29,8 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={<Error />}>
-      <Route path="auth" element={<Authentication />} />
+      <Route path="log-in" element={<Authentication />} />
+      <Route path="sign-up" element={<Authentication />} />
 
       <Route element={<Protect roles={['user']} />}>
         <Route path="birthday" element={<Birthday />} />
@@ -36,7 +38,7 @@ const router = createBrowserRouter(
 
       <Route element={<Protect roles={['*']} />}>
         <Route
-          path="profile/:userId"
+          path="profile"
           loader={loadUserBirthdays}
           element={<UserProfile />}
         />
@@ -52,7 +54,9 @@ root.render(
   <ChakraProvider>
     <NotificationProvider>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <SignUpLoginProvider>
+          <RouterProvider router={router} />
+        </SignUpLoginProvider>
       </AuthProvider>
     </NotificationProvider>
   </ChakraProvider>

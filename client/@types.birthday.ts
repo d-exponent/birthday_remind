@@ -61,6 +61,7 @@ export interface IAuthContextType {
   status: boolean | null
   accessToken: string
   setAccessToken(token: string | null): void
+  setTriggerAuth(trigger: boolean): void
 }
 
 // Notification Context
@@ -76,4 +77,9 @@ export type setNotification = (notification: notificationContent) => void
 export interface INotificationContextValue {
   content: notificationContent
   setContent: Notifification
+}
+
+export interface ISignUpLoginContext {
+  email: string
+  setEmail(email: string | null): void
 }

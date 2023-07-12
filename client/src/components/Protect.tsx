@@ -23,7 +23,7 @@ const Protect = (props: IProtectedRoute) => {
         'error',
         'Authentication failed!. Please login or register'
       )
-      return <Navigate to="/auth" state={navigationState} replace />
+      return <Navigate to="/" state={navigationState} replace />
   }
 }
 

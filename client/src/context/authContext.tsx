@@ -16,21 +16,23 @@ export function AuthProvider(props: IReactChildrenProps) {
   const [user, setUser] = useState<user>(null)
   const [accessToken, setAccessToken] = useState<accessToken>(null)
   const [status, setStatus] = useState<status>(null)
+  const [triggerAuth, setTriggerAuth] = useState(false)
 
   useEffect(() => {
-    if (status === null) {
+    if (triggerAuth || status === null) {
       const { promise, abort } = axiosAbort({ url: '/auth/refresh' })
 
       promise
         .then(({ data: { accessToken } }) => {
           setAccessToken(accessToken)
           setStatus(true)
+          setTriggerAuth(false)
         })
         .catch(() => setStatus(false))
       return abort
     }
 
-    if (accessToken && status === true && user === null) {
+    if ((accessToken && status === true && user === null)) {
       const { promise, abort } = axiosAbort({
         url: '/users/me',
         config: {
@@ -44,13 +46,14 @@ export function AuthProvider(props: IReactChildrenProps) {
 
       return abort
     }
-  }, [accessToken, status, user])
+  }, [accessToken, status, user, triggerAuth])
 
-  const authContextValue = {
+  const authContextValue: IAuthContextType = {
     user,
     status,
     accessToken: accessToken ? accessToken : '',
-    setAccessToken
+    setAccessToken,
+    setTriggerAuth
   }
 
   return (

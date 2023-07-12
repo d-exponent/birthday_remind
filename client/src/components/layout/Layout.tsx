@@ -5,7 +5,7 @@ import '../../styles/layout.css'
 const Layout = (props: IReactChildrenProps) => {
   return (
     <>
-      <Header/>
+      <Header />
       <main className="container">{props.children}</main>
     </>
   )
