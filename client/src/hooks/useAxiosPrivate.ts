@@ -29,9 +29,7 @@ const useAxiosPrivate = () => {
           const newAccessToken = await refresh()
 
           if (newAccessToken) {
-            originalRequest.headers[
-              'Authorization'
-            ] = `Bearer ${newAccessToken}`
+            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
           }
           return axiosBase(originalRequest) //One more time champ!
         }

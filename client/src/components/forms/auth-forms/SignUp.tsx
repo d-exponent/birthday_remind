@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  Input
-} from '@chakra-ui/react'
+import { Box, Button, FormControl, FormErrorMessage, Input } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import useSignUpLogin from '../../../hooks/useSignUpLogin'
 import { axiosBase } from '../../../helpers/api/axios'
@@ -44,18 +38,12 @@ const SignUp = () => {
         </Box>
 
         <Box>
-          <Input
-            placeholder="Email address"
-            {...register('email', emailRequired)}
-          />
+          <Input placeholder="Email address" {...register('email', emailRequired)} />
           <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
         </Box>
 
         <Box>
-          <Input
-            placeholder="Phone number"
-            {...register('phone', phoneRequired)}
-          />
+          <Input placeholder="Phone number" {...register('phone', phoneRequired)} />
           <FormErrorMessage>{errors.phone?.message}</FormErrorMessage>
         </Box>
       </FormControl>

@@ -32,10 +32,7 @@ function AddBirthday() {
     try {
       setContent.show('info', 'Adding birthday')
       await axios.post('users/me/birthdays', processedFormData)
-      setContent.show(
-        'success',
-        `${formData.name}'s birthday is added successfully`
-      )
+      setContent.show('success', `${formData.name}'s birthday is added successfully`)
 
       // TODO clear inputs
       // Ask user to see all their saved birthdays
@@ -64,7 +61,7 @@ function AddBirthday() {
           <Input
             id="name"
             {...register('name', {
-              required: 'ENter the name of our celebrant 🎉'
+              required: 'Enter the name of our celebrant 🎉'
             })}
           />
           <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
@@ -106,7 +103,7 @@ function AddBirthday() {
           <FormErrorMessage>{errors.month?.message}</FormErrorMessage>
         </FormControl>
 
-        <Button type="submit">Add irthday</Button>
+        <Button type="submit">Add Birthday</Button>
       </form>
     </Box>
   )

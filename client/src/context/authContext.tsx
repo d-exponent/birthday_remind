@@ -1,9 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
-import {
-  IAuthContextType,
-  IReactChildrenProps,
-  IUser
-} from '../../@types.birthday'
+import { IAuthContextType, IReactChildrenProps, IUser } from '../../@types.birthday'
 import { axiosAbort } from '../helpers/api/axios'
 
 type accessToken = string | null

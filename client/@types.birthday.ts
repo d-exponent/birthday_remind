@@ -83,3 +83,16 @@ export interface ISignUpLoginContext {
   email: string
   setEmail(email: string | null): void
 }
+
+// BIRTHDAY AND BIRTHDAYS
+export type birthday = {
+  name: string
+  day: number
+  month: number
+  email?: string
+  phone?: string
+}
+
+export interface IBirthdaysProps {
+  birthdays: birthday[]
+}

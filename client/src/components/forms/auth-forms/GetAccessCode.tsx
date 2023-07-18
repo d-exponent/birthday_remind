@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  Input
-} from '@chakra-ui/react'
+import { Box, Button, FormControl, FormErrorMessage, Input } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { IEmailInput } from '../../../../@types.birthday'
 import { axiosBase } from '../../../helpers/api/axios'
@@ -35,10 +29,7 @@ export default function GetAccessCode() {
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.email}>
-          <Input
-            placeholder="Email address"
-            {...register('email', emailRequired)}
-          />
+          <Input placeholder="Email address" {...register('email', emailRequired)} />
           <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
         </FormControl>
         <Button type="submit">Get Access Code</Button>

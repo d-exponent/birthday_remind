@@ -12,14 +12,11 @@ import { AuthProvider } from './context/authContext'
 import { NotificationProvider } from './context/notificationContext'
 import { SignUpLoginProvider } from './context/SignupLoginContext'
 
-// Loaders
-import { loadUserBirthdays } from './helpers/loaders'
-
 // Components
 import App from './App'
 import Protect from './components/Protect'
 import Authentication from './routes/Authentication'
-import Birthday from './routes/Birthday'
+import AddBirthday from './routes/AddBirthday'
 import Error from './routes/Error'
 import Unauthorized from './routes/Unauthorized'
 import UserProfile from './routes/UserProfile'
@@ -33,7 +30,7 @@ const router = createBrowserRouter(
       <Route path="sign-up" element={<Authentication />} />
 
       <Route element={<Protect roles={['user']} />}>
-        <Route path="birthday" element={<Birthday />} />
+        <Route path="birthday" element={<AddBirthday />} />
       </Route>
 
       <Route element={<Protect roles={['*']} />}>

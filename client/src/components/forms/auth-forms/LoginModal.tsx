@@ -64,9 +64,7 @@ export default function LoginModal() {
         <ModalBody>
           <form onSubmit={handleSubmit(onSubmitAccessCode)}>
             <FormControl isInvalid={errors.accessCode}>
-              <FormLabel htmlFor="accessCode">
-                Enter 4 digits access code
-              </FormLabel>
+              <FormLabel htmlFor="accessCode">Enter 4 digits access code</FormLabel>
               <Input
                 id="accessCode"
                 {...register('accessCode', loginAccessCodeRequired)}
