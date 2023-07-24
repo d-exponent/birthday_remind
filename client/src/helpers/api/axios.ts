@@ -2,7 +2,7 @@ import axios from 'axios'
 import { IAbortConfigParams } from '../../../@types.birthday'
 
 export const axiosBase = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'http://localhost:5000/api/v1',
   withCredentials: true
 })
 
