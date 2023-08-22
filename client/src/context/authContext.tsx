@@ -1,55 +1,48 @@
 import { createContext, useEffect, useState } from 'react'
 import { IAuthContextType, IReactChildrenProps, IUser } from '../../@types.birthday'
-import { axiosAbort } from '../helpers/api/axios'
-
-type accessToken = string | null
-type user = IUser | null
-type status = boolean | null
+import { axiosAbort, axiosRefresh } from '../helpers/api/axios'
 
 const AuthContext = createContext<IAuthContextType | null>(null)
 
 export function AuthProvider(props: IReactChildrenProps) {
-  const [user, setUser] = useState<user>(null)
-  const [accessToken, setAccessToken] = useState<accessToken>(null)
-  const [status, setStatus] = useState<status>(null)
-  const [triggerAuth, setTriggerAuth] = useState(false)
+  const [user, setUser] = useState<IUser | null>(null)
+  const [status, setStatus] = useState<boolean | null>(null)
+  const [accessToken, setAccessToken] = useState<string>('')
 
   useEffect(() => {
-    if (triggerAuth || status === null) {
-      const { promise, abort } = axiosAbort({ url: '/auth/refresh' })
+    if (status === null) {
+      const { promise, abort } = axiosRefresh()
 
       promise
-        .then(({ data: { accessToken } }) => {
-          setAccessToken(accessToken)
+        .then(res => {
+          setAccessToken(res.data.accessToken)
           setStatus(true)
-          setTriggerAuth(false)
         })
         .catch(() => setStatus(false))
-      return abort
-    }
 
-    if (accessToken && status === true && user === null) {
+      return () => abort()
+    }
+  }, [status])
+
+  useEffect(() => {
+    if (accessToken && user === null) {
       const { promise, abort } = axiosAbort({
         url: '/users/me',
-        config: {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        }
+        config: { headers: { Authorization: `Bearer ${accessToken}` } }
       })
 
-      promise
-        .then(({ data: { data } }) => setUser(data))
-        .catch(e => console.error(e))
+      promise.then(res => setUser(res.data.data)).catch(e => console.error(e))
 
-      return abort
+      return () => abort()
     }
-  }, [accessToken, status, user, triggerAuth])
+  }, [accessToken, user])
 
   const authContextValue: IAuthContextType = {
     user,
     status,
-    accessToken: accessToken ? accessToken : '',
-    setAccessToken,
-    setTriggerAuth
+    accessToken,
+    setStatus: (stat: boolean) => setStatus(stat),
+    setAccessToken: (token: string) => setAccessToken(token)
   }
 
   return (

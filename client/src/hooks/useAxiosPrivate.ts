@@ -1,23 +1,25 @@
 import { useEffect } from 'react'
-import { axiosBase } from '../helpers/api/axios'
+import { axiosBase, axiosRefresh } from '../helpers/api/axios'
 import useAuth from './useAuth'
-import refresh from '../helpers/api/refresh'
 
 const useAxiosPrivate = () => {
   const { accessToken } = useAuth()
 
   useEffect(() => {
-    const requestInterceptor = axiosBase.interceptors.request.use(
-      config => {
-        config.headers['Content-Type'] = 'application/json'
-        // Add accessToken to all request config if not set
-        if (!config.headers['Authorization'] && accessToken) {
-          config.headers['Authorization'] = `Bearer ${accessToken}`
+    if (accessToken) {
+      const requestInterceptor = axiosBase.interceptors.request.use(request => {
+        if (!request.headers['Authorization']) {
+          request.headers['Authorization'] = `Bearer ${accessToken}`
         }
-        return config
-      },
-      error => Promise.reject(error)
-    )
+        return request
+      })
+
+      return () => axiosBase.interceptors.request.eject(requestInterceptor)
+    }
+  }, [accessToken])
+
+  useEffect(() => {
+    let aborter: ((reason?: unknown) => void) | null = null
 
     const responseInterceptor = axiosBase.interceptors.response.use(
       response => response,
@@ -26,11 +28,21 @@ const useAxiosPrivate = () => {
         const originalRequest = error?.config
         if (error.response?.status === 401 && !originalRequest?._retry) {
           originalRequest._retry = true
-          const newAccessToken = await refresh()
+          let newAccessToken: string | null = null
 
-          if (newAccessToken) {
-            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
+          const refresh = axiosRefresh()
+
+          try {
+            const res = await refresh.promise
+            newAccessToken = res.data.accessToken
+            aborter = refresh.abort
+          } catch (e) {
+            /**Empty block */
           }
+
+          if (newAccessToken !== null)
+            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
+
           return axiosBase(originalRequest) //One more time champ!
         }
         return Promise.reject(error)
@@ -39,9 +51,9 @@ const useAxiosPrivate = () => {
 
     return () => {
       axiosBase.interceptors.response.eject(responseInterceptor)
-      axiosBase.interceptors.request.eject(requestInterceptor)
+      if (aborter) aborter()
     }
-  }, [refresh, accessToken])
+  }, [])
 
   return axiosBase
 }

@@ -7,17 +7,19 @@ import {
   Input,
   Select
 } from '@chakra-ui/react'
+
 import { nanoid } from 'nanoid'
 import { useForm } from 'react-hook-form'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import useNotification from '../../hooks/useNotification'
 
 import { IAddBirtdayFormdata } from '../../../@types.birthday'
+import { handleAxiosError } from '../../helpers/api/axios'
 import { emailOptional, phoneOptional } from '../../helpers/formRegisterConfig'
 
 function AddBirthday() {
-  const axios = useAxiosPrivate()
-  const { setContent } = useNotification()
+  const axiosPrivate = useAxiosPrivate()
+  const { handleNotification } = useNotification()
   const { formState, register, handleSubmit } = useForm<IAddBirtdayFormdata>()
   const { errors } = formState
 
@@ -30,14 +32,18 @@ function AddBirthday() {
     }
 
     try {
-      setContent.show('info', 'Adding birthday')
-      await axios.post('users/me/birthdays', processedFormData)
-      setContent.show('success', `${formData.name}'s birthday is added successfully`)
+      handleNotification.show('info', `Adding ${formData.name}'s birthday`)
+      await axiosPrivate.post('users/me/birthdays', processedFormData)
+
+      handleNotification.show(
+        'success',
+        `${formData.name}'s birthday is added successfully`
+      )
 
       // TODO clear inputs
       // Ask user to see all their saved birthdays
     } catch (e) {
-      setContent.show('error', e.response.data.message)
+      handleNotification.show('error', handleAxiosError(e))
     }
   }
 

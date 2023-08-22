@@ -4,7 +4,7 @@ import useAuth from '../hooks/useAuth'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
 import Birthdays from '../components/Birthdays'
 
-function UserProfile() {
+const UserProfile = () => {
   const [myBirthdays, setMyBirthdays] = useState([])
   const { user, status } = useAuth()
   const axiosPrivate = useAxiosPrivate()
@@ -16,7 +16,7 @@ function UserProfile() {
         setMyBirthdays(res.data.data)
       })
       .catch(e => console.error(e))
-  }, [])
+  }, [axiosPrivate])
 
   if (user === null) return <div>Loading</div>
 

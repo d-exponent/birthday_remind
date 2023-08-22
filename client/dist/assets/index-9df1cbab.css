@@ -1,0 +1,1 @@
+.notification{display:grid;color:#f8f8f8;box-sizing:border-box;padding:20px;place-content:center;position:fixed;width:min(80%,350px);right:20px;bottom:20px;border-radius:4px;font-size:15px;z-index:999}.error{background-color:#ed1c24cc}.info{background-color:#a864a8e6}.success{background-color:#1b9c85e6}.App{min-height:100vh}a.active{color:red;background-color:#fff}

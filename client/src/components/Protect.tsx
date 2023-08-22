@@ -6,7 +6,8 @@ import useNotification from '../hooks/useNotification'
 const Protect = (props: IProtectedRoute) => {
   const auth = useAuth()
   const location = useLocation()
-  const { setContent } = useNotification()
+  const { handleNotification } = useNotification()
+
   const navigationState = { from: location }
   const userRole = auth?.user?.role || ''
 
@@ -14,7 +15,7 @@ const Protect = (props: IProtectedRoute) => {
     case userRole && (props.roles[0] === '*' || props.roles.includes(userRole)):
       return <Outlet />
     case auth?.user !== null:
-      setContent.show('error', 'You are not authorized to the page')
+      handleNotification.show('error', 'You are not authorized to the page')
       return <Navigate to="/unauthorized" state={navigationState} replace />
     default:
       return <Navigate to="/" state={navigationState} replace />

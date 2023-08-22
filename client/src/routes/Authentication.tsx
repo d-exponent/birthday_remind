@@ -5,7 +5,7 @@ import { Button } from '@chakra-ui/react'
 import GetAccessCode from '../components/forms/auth-forms/GetAccessCode'
 import SignUp from '../components/forms/auth-forms/SignUp'
 
-export default function UserAuth() {
+const UserAuth = () => {
   const { pathname } = useLocation()
   const [focusOnSignUp, setFocusOnSignUp] = useState<boolean | null>(null)
 
@@ -22,3 +22,5 @@ export default function UserAuth() {
     </div>
   )
 }
+
+export default UserAuth

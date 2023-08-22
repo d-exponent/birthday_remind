@@ -11,8 +11,8 @@ const Header = () => {
       <NavLink to="/">HOME</NavLink>
       <nav>
         <>
-          {status === false && <MyLink to="/log-in" text="Login" />}
-          {status === false && <MyLink to="/sign-up" text="Sign up" />}
+          {!status && <MyLink to="/log-in" text="Login" />}
+          {!status && <MyLink to="/sign-up" text="Sign up" />}
           <MyLink to="/profile" text="Profile" protect={true} />
           <MyLink to="/birthday" text="New Birthday" protect={true} />
         </>

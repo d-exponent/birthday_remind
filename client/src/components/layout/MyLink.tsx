@@ -1,11 +1,7 @@
 import { NavLink } from 'react-router-dom'
-import useAuth from '../../hooks/useAuth'
 
-interface ILinkProps {
-  to: string
-  text: string
-  protect?: boolean
-}
+import { ILinkProps } from '../../../@types.birthday'
+import useAuth from '../../hooks/useAuth'
 
 const MyLink = (props: ILinkProps) => {
   const { status } = useAuth()

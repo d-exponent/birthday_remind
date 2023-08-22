@@ -1,6 +1,12 @@
 import { ReactElement } from 'react'
 import Notifification from './src/helpers/notification'
 
+export interface ILinkProps {
+  to: string
+  text: string
+  protect?: boolean
+}
+
 export interface IEmailInput {
   email: string
 }
@@ -60,8 +66,8 @@ export interface IAuthContextType {
   user: IUser | null
   status: boolean | null
   accessToken: string
-  setAccessToken(token: string | null): void
-  setTriggerAuth(trigger: boolean): void
+  setAccessToken(token: string): void
+  setStatus(status: boolean): void
 }
 
 // Notification Context
@@ -76,7 +82,7 @@ export type setNotification = (notification: notificationContent) => void
 
 export interface INotificationContextValue {
   content: notificationContent
-  setContent: Notifification
+  handleNotification: Notifification
 }
 
 export interface ISignUpLoginContext {

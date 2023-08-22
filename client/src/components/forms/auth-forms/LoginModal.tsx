@@ -5,7 +5,8 @@ import { IAccessCodeInput } from '../../../../@types.birthday'
 import { loginAccessCodeRequired } from '../../../helpers/formRegisterConfig'
 
 import { useNavigate } from 'react-router-dom'
-import { axiosBase } from '../../../helpers/api/axios'
+import { axiosBase, handleAxiosError } from '../../../helpers/api/axios'
+
 import useAuth from '../../../hooks/useAuth'
 import useNotification from '../../../hooks/useNotification'
 import useSignUpLogin from '../../../hooks/useSignUpLogin'
@@ -30,21 +31,25 @@ export default function LoginModal() {
   const { register, handleSubmit, formState } = useForm<IAccessCodeInput>()
   const { errors } = formState
 
-  const { setContent } = useNotification()
-  const { email, setEmail } = useSignUpLogin()
   const navigate = useNavigate()
-  const { setTriggerAuth } = useAuth()
+  const { setAccessToken, setStatus } = useAuth()
+  const { email, setEmail } = useSignUpLogin()
+  const { handleNotification } = useNotification()
 
   const onSubmitAccessCode = async (formData: IAccessCodeInput) => {
-    setContent.show('info', 'Submitting access code')
+    handleNotification.show('info', 'Submitting access code')
     try {
-      await axiosBase.get(`/auth/login/${email}/${formData.accessCode}`)
-      setContent.show('success', `Login successfull`)
-      setTriggerAuth(true)
+      const res = await axiosBase.get(`auth/login/${email}/${formData.accessCode}`)
+
       setEmail('')
+      setAccessToken(res.data.accessToken)
+      setStatus(true)
+
       navigate('/')
+      handleNotification.show('success', `Login successfull`)
     } catch (e) {
-      setContent.show('error', e.response.data.message)
+      setStatus(false)
+      handleNotification.show('error', handleAxiosError(e))
     }
   }
 
@@ -63,7 +68,7 @@ export default function LoginModal() {
         <ModalCloseButton />
         <ModalBody>
           <form onSubmit={handleSubmit(onSubmitAccessCode)}>
-            <FormControl isInvalid={errors.accessCode}>
+            <FormControl isInvalid={!!errors.accessCode}>
               <FormLabel htmlFor="accessCode">Enter 4 digits access code</FormLabel>
               <Input
                 id="accessCode"

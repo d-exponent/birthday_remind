@@ -26,7 +26,7 @@ export const NotificationProvider = (props: IReactChildrenProps) => {
 
   const notificationContextValue = {
     content: notifcation,
-    setContent: appNotification
+    handleNotification: appNotification
   }
 
   return (

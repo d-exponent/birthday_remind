@@ -33,7 +33,7 @@ const router = createBrowserRouter(
         <Route path="birthday" element={<AddBirthday />} />
       </Route>
 
-      <Route element={<Protect roles={['*']} />}>
+      <Route element={<Protect roles={['user']} />}>
         <Route path="profile" element={<UserProfile />} />
       </Route>
 
